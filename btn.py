@@ -55,10 +55,10 @@ for number in phone_numbers:
 
 vcard_text = vcard_text_1 + "\n" + "\n".join(tel_list) + "\n" + vcard_text_2
 
-f_out = open(filepath_out, "w")
-f_out.write(vcard_text)
-f_out.close()
 if not pipe:
+    f_out = open(filepath_out, "w")
+    f_out.write(vcard_text)
+    f_out.close()
     print(f"{bcolors.OKGREEN}Success:{bcolors.ENDC} {len(tel_list)} Phone numbers written to {filepath_out}")
 else:
     print(vcard_text)
