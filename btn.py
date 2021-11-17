@@ -24,7 +24,7 @@ X-ABUID:43BBB008-34F6-4A69-B39D-72EB660829F2:ABPerson
 END:VCARD"""
 
 if (len(sys.argv) < 3):
-    print(f"{bcolors.FAIL}Usage:{bcolors.ENDC} arg1: path to file containg numbers, 1 per line | arg2: path to output file, .vcf file extension is added automatically if missing | Optional value for arg2: PIPE : turns of all other output and prints content of vcard file to StdOut")
+    print(f"{bcolors.FAIL}Error -> Missing arguments{bcolors.ENDC}\n{bcolors.UNDERLINE}Usage:{bcolors.ENDC} \n{bcolors.BOLD}arg1{bcolors.ENDC}: path to file containg numbers, 1 per line\n{bcolors.BOLD}arg2{bcolors.ENDC}: path to output file, .vcf file extension is added automatically if missing\n{bcolors.BOLD}arg2{bcolors.ENDC}: [alternative] \"PIPE\" -> turns off all other output and prints content of vcard file to StdOut\n")
     exit()
 
 filepath_in = sys.argv[1]
