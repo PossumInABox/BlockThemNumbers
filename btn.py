@@ -39,9 +39,18 @@ if (not filepath_out.endswith(".vcf") and not pipe):
     filepath_out += ".vcf"
     print(f"{bcolors.WARNING}Filename fixed:{bcolors.ENDC} {sys.argv[2]} {bcolors.WARNING}->{bcolors.ENDC} {filepath_out}")
 
-f_in = open(filepath_in, "r")
-phone_numbers = list(set(f_in.read().split("\n")))
-f_in.close()
+try:
+    f_in = open(filepath_in, "r")
+    phone_numbers = list(set(f_in.read().split("\n")))
+except:
+    print(f"{bcolors.FAIL}Error when reading the file {filepath_in}{bcolors.ENDC}")
+    try:
+        f_in.close()
+    except:
+        pass
+    exit()
+else:
+    f_in.close()
 
 tel_list = []
 for number in phone_numbers:
@@ -50,7 +59,7 @@ for number in phone_numbers:
         tel_list.append("TEL;type=WORK;type=VOICE;type=pref:" + number)
     elif (number == ""):
         #do nothing, say nothing, only dreams now
-        0
+        pass
     else:
         if not pipe:
             print(f"{bcolors.WARNING}Problem with number:{bcolors.ENDC} {number} -> wrong format, use i.e. +41781234567 (spaces will be removed automatically)")
@@ -58,9 +67,19 @@ for number in phone_numbers:
 vcard_text = vcard_text_1 + "\n" + "\n".join(tel_list) + "\n" + vcard_text_2
 
 if not pipe:
-    f_out = open(filepath_out, "w")
-    f_out.write(vcard_text)
-    f_out.close()
+    try:
+        f_out = open(filepath_out, "w")
+        f_out.write(vcard_text)
+    except:
+        print(f"{bcolors.FAIL}Error when writing the file {filepath_out}{bcolors.ENDC}")
+        try:
+            f_out.close()
+        except:
+            pass
+        exit()
+    else:
+        f_out.close()
     print(f"{bcolors.OKGREEN}Success:{bcolors.ENDC} {len(tel_list)} Phone numbers written to {filepath_out}")
 else:
+    # option PIPE chosen, write output to console
     print(vcard_text)
